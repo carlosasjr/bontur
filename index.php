@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+ob_start();
 session_start();
 
 if (empty($_SESSION['login'])) {
@@ -26,4 +27,7 @@ require 'vendor/autoload.php';
 
 </body>
 </html>
+
+<?php
+ob_end_flush();
 

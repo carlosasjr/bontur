@@ -40,17 +40,16 @@ if (!empty($dados) && $dados['formLogin']) {
 <section class="login-block">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 login-sec">
+            <div class="col-md-5 login-sec" id="login">
                 <h2 class="text-center">Login</h2>
                 <form class="login-form" id="formLogin" method="post">
                     <div class="form-group">
                         <label for="email" class="text-uppercase">E-mail</label>
-                        <input type="email" class="form-control" placeholder="" autofocus id="email" name="email">
-
+                        <input type="email" class="form-control" placeholder="E-mail" autofocus id="email" name="email">
                     </div>
                     <div class="form-group">
                         <label for="senha" class="text-uppercase">Senha</label>
-                        <input type="password" class="form-control" placeholder="" id="senha" name="senha">
+                        <input type="password" class="form-control" placeholder="Senha" id="senha" name="senha">
                         <a href="esqueci.php">
                             <small>Esqueci a senha</small>
                         </a>
@@ -58,13 +57,12 @@ if (!empty($dados) && $dados['formLogin']) {
 
 
                     <div class="form-check">
-                        <a href="registrar.php" class="btn btn-primary float-right">Registrar-se</a>
+                        <a id="registrarSe" class="btn btn-primary float-right text-white">Registrar-se</a>
+
                         <input type="submit" class="btn btn-login float-right" name="formLogin" value="Entrar">
+
                     </div>
                 </form>
-
-
-                <div class="copy-text">Criado por by <a href="http://www.carlosasjr.com.br">carlosasjr.com.br</a></div>
 
                 <?php
                 if (!empty($erroLogin)) {
@@ -72,7 +70,39 @@ if (!empty($dados) && $dados['formLogin']) {
                 }
                 ?>
             </div>
-            <div class="col-md-8 banner-sec">
+
+
+            <div class="col-md-5 login-sec" id="registro" style="display: none">
+                <form class="login-form" id="formRegisto" method="post">
+                    <h2 class="text-center">Registro</h2>
+                    <div class="form-group">
+                        <label for="name" class="text-uppercase">Nome</label>
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="Nome" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email1" class="text-uppercase">E-mail</label>
+                        <input type="email" name="email" class="form-control" id="email1"
+                               placeholder="email@examplo.com" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="text-uppercase">Senha</label>
+                        <input type="password" name="password" class="form-control" id="password"
+                               placeholder="Senha" required>
+                    </div>
+
+                    <div class="form-check">
+                        <a id="jaRegistro" class="btn btn-primary float-right text-white">Já possuo registro</a>
+                        <input type="submit" class="btn btn-login float-right" name="formRegistro" value="Registrar">
+                    </div>
+
+                </form>
+            </div>
+
+
+            <div class="col-md-7 banner-sec">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -124,6 +154,7 @@ if (!empty($dados) && $dados['formLogin']) {
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
 
@@ -137,6 +168,3 @@ if (!empty($dados) && $dados['formLogin']) {
 <script type="text/javascript" rel="script" src="js/scriptLogin.js"></script>
 </body>
 </html>
-
-
-}

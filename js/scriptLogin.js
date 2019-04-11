@@ -1,3 +1,14 @@
+$("#registrarSe").click(function () {
+ $("#login").hide();
+ $("#registro").show();
+})
+
+$("#jaRegistro").click(function () {
+    $("#registro").hide();
+    $("#login").show();
+})
+
+
 $(document).ready(function () {
 
     $("#formLogin").validate({
