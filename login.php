@@ -64,8 +64,7 @@ if (!empty($dados) && $dados['formLogin']) {
                 </form>
 
 
-                <div class="copy-text">Criado por by <a href="http://www.carlosasjr.com.br">carlosasjr.com.br</a>
-                </div>
+                <div class="copy-text">Criado por by <a href="http://www.carlosasjr.com.br">carlosasjr.com.br</a></div>
 
                 <?php
                 if (!empty($erroLogin)) {
