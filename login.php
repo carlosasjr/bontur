@@ -30,9 +30,8 @@ if (!empty($dados) && isset($dados['formRegistro'])) {
         return false;
     }
 
-    $dados = array_map('strip_tags', $dados);
-    $dados = array_map('trim', $dados);
     $dados['ip'] = 0;
+    $dados['senha'] = md5($dados['senha']);
 
     $usuario = new TUsuariosRecord();
     $usuario->fromArray($dados);
