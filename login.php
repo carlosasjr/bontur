@@ -4,16 +4,15 @@ session_start();
 
 require 'vendor/autoload.php';
 
-use App\model\Login;
-
+use App\model\TUsuariosRecord;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-if (!empty($dados) && $dados['formLogin']) {
+if (!empty($dados) && isset($dados['formLogin'])) {
     $email = $dados['email'];
     $senha = md5($dados['senha']);
 
-    $usuario = new Login();
+    $usuario = new TUsuariosRecord();
 
     if ($usuario->login($email, $senha)) {
         header("Location: index.php");
@@ -21,6 +20,30 @@ if (!empty($dados) && $dados['formLogin']) {
     } else {
         $erroLogin = "<br><br><small class='error'>E-mail e/ou Senha inválidos!</small>";
     }
+}
+
+if (!empty($dados) && isset($dados['formRegistro'])) {
+    unset($dados['formRegistro']);
+
+    if (in_array('', $dados)) {
+        WSErro('<b>Erro ao cadastrar:</b> Preencha todos os campos!', WS_ALERT);
+        return false;
+    }
+
+    $dados = array_map('strip_tags', $dados);
+    $dados = array_map('trim', $dados);
+    $dados['ip'] = 0;
+
+    $usuario = new TUsuariosRecord();
+    $usuario->fromArray($dados);
+    $usuario->store();
+
+    header("Location: login.php");
+    exit;
+}
+
+if (!empty($dados) && isset($dados['formEsqueci'])) {
+
 }
 
 
@@ -42,27 +65,24 @@ if (!empty($dados) && $dados['formLogin']) {
         <div class="row">
             <div class="col-md-5 login-sec" id="login">
                 <h2 class="text-center">Login</h2>
-                <form class="login-form" id="formLogin" method="post">
+                <form class="login-form" id="formLogin" name="formLogin" method="post">
                     <div class="form-group">
-                        <label for="email" class="text-uppercase">E-mail</label>
+                        <label for="email">E-mail</label>
                         <input type="email" class="form-control" placeholder="E-mail" autofocus id="email" name="email">
                     </div>
                     <div class="form-group">
-                        <label for="senha" class="text-uppercase">Senha</label>
+                        <label for="senha">Senha</label>
                         <input type="password" class="form-control" placeholder="Senha" id="senha" name="senha">
-                        <a href="esqueci.php">
-                            <small>Esqueci a senha</small>
-                        </a>
                     </div>
+
 
 
                     <div class="form-check">
                         <a id="registrarSe" class="btn btn-primary float-right text-white">Registrar-se</a>
-
                         <input type="submit" class="btn btn-login float-right" name="formLogin" value="Entrar">
-
                     </div>
                 </form>
+                <a id="esqueciaSenha" class="btn btn-link float-left"><small>Esqueci a senha</small></a>
 
                 <?php
                 if (!empty($erroLogin)) {
@@ -73,24 +93,24 @@ if (!empty($dados) && $dados['formLogin']) {
 
 
             <div class="col-md-5 login-sec" id="registro" style="display: none">
-                <form class="login-form" id="formRegisto" method="post">
+                <form class="login-form" id="formRegisto" name="formRegisto" method="post">
                     <h2 class="text-center">Registro</h2>
                     <div class="form-group">
-                        <label for="name" class="text-uppercase">Nome</label>
-                        <input type="text" name="name" class="form-control" id="name"
-                               placeholder="Nome" required autofocus>
+                        <label for="nomeRegistro">Nome</label>
+                        <input type="text" name="nome" class="form-control" id="nome"
+                               placeholder="Nome" autofocus>
                     </div>
 
                     <div class="form-group">
-                        <label for="email1" class="text-uppercase">E-mail</label>
-                        <input type="email" name="email" class="form-control" id="email1"
-                               placeholder="email@examplo.com" required autofocus>
+                        <label for="emailRegistro">E-mail</label>
+                        <input type="email" name="email" class="form-control" id="nome"
+                               placeholder="email@examplo.com" autofocus>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="text-uppercase">Senha</label>
-                        <input type="password" name="password" class="form-control" id="password"
-                               placeholder="Senha" required>
+                        <label for="senhaRegistro">Senha</label>
+                        <input type="password" name="senha" class="form-control" id="nome"
+                               placeholder="Senha">
                     </div>
 
                     <div class="form-check">
@@ -98,6 +118,23 @@ if (!empty($dados) && $dados['formLogin']) {
                         <input type="submit" class="btn btn-login float-right" name="formRegistro" value="Registrar">
                     </div>
 
+                </form>
+            </div>
+
+
+            <div class="col-md-5 login-sec" id="esqueci" style="display: none">
+                <h2 class="text-center">Esqueci a senha</h2>
+                <form class="login-form" id="formLogin" name="formEsqueci" method="post">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" class="form-control" placeholder="E-mail" autofocus id="email" name="email">
+                    </div>
+
+                    <div class="form-check">
+                        <input type="submit" class="btn btn-login float-right" name="formEsqueci" value="Enviar">
+                        <a href="login.php" id="voltar" class="btn btn-primary float-right text-white">Fazer Login</a>
+
+                    </div>
                 </form>
             </div>
 
