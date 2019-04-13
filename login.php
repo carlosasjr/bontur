@@ -96,19 +96,19 @@ if (!empty($dados) && isset($dados['formEsqueci'])) {
                     <h2 class="text-center">Registro</h2>
                     <div class="form-group">
                         <label for="nomeRegistro">Nome</label>
-                        <input type="text" name="nome" class="form-control" id="nome"
+                        <input type="text" name="nome" class="form-control" id="nomeRegistro"
                                placeholder="Nome" autofocus>
                     </div>
 
                     <div class="form-group">
                         <label for="emailRegistro">E-mail</label>
-                        <input type="email" name="email" class="form-control" id="nome"
+                        <input type="email" name="email" class="form-control" id="emailRegistro"
                                placeholder="email@examplo.com" autofocus>
                     </div>
 
                     <div class="form-group">
                         <label for="senhaRegistro">Senha</label>
-                        <input type="password" name="senha" class="form-control" id="nome"
+                        <input type="password" name="senha" class="form-control" id="senhaRegistro"
                                placeholder="Senha">
                     </div>
 
@@ -126,7 +126,7 @@ if (!empty($dados) && isset($dados['formEsqueci'])) {
                 <form class="login-form" id="formLogin" name="formEsqueci" method="post">
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input type="email" class="form-control" placeholder="E-mail" autofocus id="email" name="email">
+                        <input type="email" class="form-control" placeholder="E-mail" autofocus id="emailEsqueci" name="email">
                     </div>
 
                     <div class="form-check">

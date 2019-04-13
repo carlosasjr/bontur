@@ -3,12 +3,18 @@
 ob_start();
 session_start();
 
+use App\model\TUsuariosRecord;
+
 if (empty($_SESSION['login'])) {
     header('Location: login.php');
     exit;
 }
 
 require 'vendor/autoload.php';
+
+$id = $_SESSION['login'];
+$usuario = new TUsuariosRecord($id);
+$nome = $usuario->nome;
 
 ?>
 
@@ -20,6 +26,10 @@ require 'vendor/autoload.php';
 </head>
 <body>
 <h1>Area Restrita</h1>
+
+<h2>Olá <?= $nome; ?></h2>
+
+<a class="btn btn-primary" href="sair.php">Sair</a>
 <?php
 
 

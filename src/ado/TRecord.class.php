@@ -123,6 +123,9 @@ abstract class TRecord
      */
     public function fromArray($data)
     {
+        $data = array_map('strip_tags', $data);
+        $data = array_map('trim', $data);
+
         $this->data = $data;
     }
 
