@@ -1,9 +1,7 @@
-<!DOCTYPE html>
 <?php
 ob_start();
 session_start();
 
-use App\model\TUsuariosRecord;
 
 if (empty($_SESSION['login'])) {
     header('Location: login.php');
@@ -12,12 +10,14 @@ if (empty($_SESSION['login'])) {
 
 require 'vendor/autoload.php';
 
+use App\model\TUsuariosRecord;
+
 $id = $_SESSION['login'];
 $usuario = new TUsuariosRecord($id);
 $nome = $usuario->nome;
 
 ?>
-
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -30,14 +30,8 @@ $nome = $usuario->nome;
 <h2>Olá <?= $nome; ?></h2>
 
 <a class="btn btn-primary" href="sair.php">Sair</a>
-<?php
-
-
-?>
 
 </body>
 </html>
-
 <?php
 ob_end_flush();
-
