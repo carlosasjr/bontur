@@ -7,5 +7,22 @@ if (empty($_SESSION['login'])) {
 <div class="content home">
     <aside>
         <h1>Home</h1>
+
     </aside>
+
+
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

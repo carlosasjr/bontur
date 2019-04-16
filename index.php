@@ -56,15 +56,6 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
                 ?>
 
                 <ul class="menu">
-                    <li class="li<?php if (in_array('posts', $linkto)) {
-                        echo ' active';
-                    } ?>"><a class="opensub" onclick="return false;" href="#">Posts</a>
-                        <ul class="sub">
-                            <li><a href="index.php?exe=posts/create">Criar Post</a></li>
-                            <li><a href="index.php?exe=posts/index">Listar / Editar Posts</a></li>
-                        </ul>
-                    </li>
-
                     <li class="li<?php if (in_array('categories', $linkto)) {
                         echo ' active';
                     } ?>"><a class="opensub" onclick="return false;" href="#">Categorias</a>
@@ -74,15 +65,24 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
                         </ul>
                     </li>
 
-                    <li class="li<?php if (in_array('empresas', $linkto)) {
+                    <li class="li<?php if (in_array('product', $linkto)) {
                         echo ' active';
-                    } ?>"><a class="opensub" onclick="return false;" href="#">Empresas</a>
+                    } ?>"><a class="opensub" onclick="return false;" href="#">Produtos</a>
                         <ul class="sub">
-                            <li><a href="index.php?exe=empresas/create">Cadastrar Empresa</a></li>
-                            <li><a href="index.php?exe=empresas/index">Listar / Editar Empresas</a></li>
+                            <li><a href="index.php?exe=posts/create">Criar Produtos</a></li>
+                            <li><a href="index.php?exe=posts/index">Listar / Editar Produtos</a></li>
                         </ul>
                     </li>
-                    <li class="li"><a href="../" target="_blank" class="opensub">Ver Site</a></li>
+
+                    <li class="li<?php if (in_array('empresas', $linkto)) {
+                        echo ' active';
+                    } ?>"><a class="opensub" onclick="return false;" href="#">Comprar</a>
+                        <ul class="sub">
+                            <li><a href="index.php?exe=empresas/create">Realizar Compra</a></li>
+                            <li><a href="index.php?exe=empresas/index">Listar / Editar Compra</a></li>
+                        </ul>
+                    </li>
+                    <li class="li"><a href="../" target="_blank" class="opensub">Ver Pontuação</a></li>
                 </ul>
             </nav>
 
