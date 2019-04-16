@@ -70,7 +70,6 @@ body.painel{background: url(../images/header_bg.png) repeat-x #fbfbfb;}
 
 /*GERAL CONTENT*/
 #painel{width: 100%; padding: 30px 0 30px;}
-#painel .content{width: 968px; margin: 0 auto;}
 #painel .notfound{min-height: 320px;}
 
 /*BOX GERAL*/
@@ -221,6 +220,6 @@ body.painel{background: url(../images/header_bg.png) repeat-x #fbfbfb;}
 .ultable li .ed .user_dele{background: #ccc url(../icons/act_delete.png) center center no-repeat; background-size: 70%}
 
 /*FOOTER GERAL*/
-.main_footer{background: #00254A; width: 100%; padding: 30px 0; text-align: center; border-top: 2px solid #444;}
-.main_footer a{font-size: 14px; color: #fff; font-variant: small-caps;}
-.main_footer a:hover{text-decoration: underline;}
+.main_footer{background: #069; width: 100%; padding: 10px 0; text-align: center;}
+.main_footer a{font-size: 14px; color: #FFFFFF; font-variant: small-caps;}
+.main_footer a:hover{text-decoration: underline; color: #FFFFFF}

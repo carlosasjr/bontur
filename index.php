@@ -35,7 +35,7 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <nav class="navbar navbar-expand-lg navbar-dark rounded-bottom" style="background-color: #00254A">
+                <nav class="navbar navbar-expand-lg navbar-dark rounded-bottom" style="background-color: #069;">
 
                     <?php
                     //ATIVA MENU
@@ -54,25 +54,32 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
 
                     <div class="navbar-collapse collapse" id="navbarMenu">
                         <div class="navbar-nav">
-                            <a href="#" class="nav-item nav-link">Categorias</a>
-                            <a href="#" class="nav-item nav-link">Produtos</a>
-                            <a href="#" class="nav-item nav-link">Compras</a>
-                            <a href="#" class="nav-item nav-link">Pontuação</a>
+                            <a href="index.php?exe=categorias/create" class="nav-item nav-link <?php if (in_array('categorias', $linkto)) {
+                                echo ' active';
+                            } ?>">Categorias</a>
+                            <a href="index.php?exe=produtos/create" class="nav-item nav-link <?php if (in_array('produtos', $linkto)) {
+                                echo ' active';
+                            } ?>">Produtos</a>
+                            <a href="index.php?exe=compras/create" class="nav-item nav-link <?php if (in_array('compras', $linkto)) {
+                                echo ' active';
+                            } ?>">Compras</a>
+                            <a href="index.php?exe=pontuacao/create" class="nav-item nav-link <?php if (in_array('pontuacao', $linkto)) {
+                                echo ' active';
+                            } ?>">Pontuação</a>
                         </div>
                     </div>
 
                     <div class="navbar-nav">
-                        <div id="nomeBar" class="text-white d-flex align-items-center" style="font-family: Open Sans" >Olá <?= $nome ?> </div>
-                        <a href="index.php?exe=users/profile" class="nav-item nav-link"><img src="icons/profile.png"></a>
+                        <div id="nomeBar" class="text-white d-flex align-items-center" style="font-family: Open Sans">
+                            Olá <?= $nome ?> </div>
+                        <a href="index.php?exe=users/profile" class="nav-item nav-link"><img
+                                    src="icons/profile.png"></a>
                         <a href="index.php?exe=users/users" class="nav-item nav-link"><img src="icons/users.png"></a>
                         <a href="sair.php" class="nav-item nav-link"><img src="icons/logout.png"></a>
                     </div>
                 </nav>
             </div>
         </div>
-
-        <div class="clear"></div>
-
 
         <div id="painel">
             <?php
@@ -112,4 +119,3 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
     </html>
 <?php
 ob_end_flush();
-
