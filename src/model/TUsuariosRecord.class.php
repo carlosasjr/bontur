@@ -1,11 +1,4 @@
 <?php
-
-/**
- * .class [ TIPO ]
- *
- * @copyright (c) 2018, Carlos Junior
- */
-
 namespace App\model;
 
 use App\ado\TRecord;
@@ -19,6 +12,18 @@ class TUsuariosRecord extends TRecord
     /*     * ************* METODOS PRIVADOS ***************** */
     /*     * ************************************************ */
 
+    private function emailRedefinir($email, $link)
+    {
+        $mensagem = "Acesse seu e-mail e clique no link para redefinir sua senha: \r\n" . $link;
+
+
+        $assunto = 'Redefinição de senha';
+
+        $headers = 'From: contato@carlosasjr.com.br' . '\r\n' .
+            'XMailer: PHP/' . phpversion();
+
+        mail($email, $assunto, $mensagem, $headers);
+    }
 
     /*     * ************************************************ */
     /*     * ************* METODOS PUBLICOS ***************** */
@@ -28,11 +33,11 @@ class TUsuariosRecord extends TRecord
     {
         //cria um critério de seleção
         $criterio = new TCriterio();
-        //filtra por código do aluno
+        //filtra por email e senha
         $criterio->add(new TFilter('email', '=', $email));
         $criterio->add(new TFilter('senha', '=', $senha));
 
-        $sql = new TSQLSelect('Usuarios', $criterio);
+        $sql = new TSQLSelect('usuarios', $criterio);
         $sql->Execute();
 
         if ($sql->getResult()) {
@@ -47,6 +52,60 @@ class TUsuariosRecord extends TRecord
             return true;
         }
 
+
+        return false;
+    }
+
+    public function existeEmail($email)
+    {
+        //cria um critério de seleção
+        $criterio = new TCriterio();
+        //filtra por email
+        $criterio->add(new TFilter('email', '=', $email));
+
+        $sql = new TSQLSelect('usuarios', $criterio);
+        $sql->Execute();
+
+        if ($sql->getResult()) {
+            $this->id = $sql->getResult()[0]['id'];
+            return true;
+        }
+
+        return false;
+    }
+
+    public function gerarToken($email)
+    {
+        $token = md5(time() . rand(0, 99999) . rand(0, 99999));
+
+        $usuarioToken = new TUsuariosToken();
+        $usuarioToken->id_usuario = $this->id;
+        $usuarioToken->hash = $token;
+        $usuarioToken->expirado_em = date('Y-m-d H:i', strtotime('+1 months'));
+
+        $usuarioToken->store();
+
+        $link = HOME . "/redefinir.php?token=" . $token;
+
+        $this->emailRedefinir($email, $link);
+    }
+
+    public function tokenAtivo($token)
+    {
+        //cria um critério de seleção
+        $criterio = new TCriterio();
+        //filtra por hass
+        $criterio->add(new TFilter('hash', '=', $token));
+        $criterio->add(new TFilter('used', '=', '0'));
+        $criterio->add(new TFilter('expirado_em', '>', date('Y-m-d')));
+
+        $sql = new TSQLSelect('usuariostoken', $criterio);
+        $sql->Execute();
+
+        if ($sql->getResult()) {
+            $this->id = $sql->getResult()[0]['id_usuario'];
+            return true;
+        }
 
         return false;
     }

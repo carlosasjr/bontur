@@ -25,10 +25,13 @@ abstract class TRecord
     {
         //obtém o nome da classe removendo o primeiro caracter T
         $function = new \ReflectionClass($this);
+
         $classe = substr(strtolower($function->getShortName()), 1);
 
         //retorna o nome da classe - 'Record'
-        return substr($classe, 0, -6);
+        $tabela = str_replace('record', '', $classe);
+
+        return $tabela;
     }
 
     public function getLast()
@@ -37,6 +40,7 @@ abstract class TRecord
         if ($conn = TTransaction::get()) :
             //instância instrução de SELECT
             $sql = new TSQLSelect($this->getEntity());
+
             $sql->addColumn('max(id) as id');
 
             //executa instrução SQL
@@ -157,7 +161,8 @@ abstract class TRecord
 
             $sql = new TSQLUpdate($this->getEntity(), $this->data, $criterio);
 
-            //obtém transação ativa
+
+              //obtém transação ativa
             if ($conn = TTransaction::get()) :
                 //executa o SQL
                 $sql->Execute();

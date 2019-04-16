@@ -89,6 +89,7 @@ class TSQLSelect extends TSqlInstruction
         $this->Sql .= " FROM {$this->Entity}";
 
         $this->getTermos();
+
     }
 
 

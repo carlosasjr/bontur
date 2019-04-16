@@ -17,7 +17,7 @@ final class TConn
     private static $User = USER;
     private static $Pass = PASS;
     private static $Dbsa = DBSA;
-    private static $Type = TYPE;
+    private static $Type = TIPO;
 
     private static $Instance;
 

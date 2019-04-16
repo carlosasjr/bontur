@@ -6,7 +6,7 @@ define('HOST', 'localhost');
 define('USER', 'root');
 define('PASS', '');
 define('DBSA', 'bontur');
-define('TYPE', 'mysql');
+define('TIPO', 'mysql');
 
 // DEFINE SERVIDOR DE E-MAIL ################
 define('MAILUSER', 'contato@carlosasjr.com.br');
@@ -22,7 +22,7 @@ define(
 );
 
 // DEFINE A BASE DO SITE ####################
-define('HOME', 'https://www.carlosasjr.com.br');
+define('HOME', 'https://www.carlosasjr.com.br/bontur');
 define('THEME', 'bontur');
 
 define('INCLUDE_PATH', HOME . '/src/' . THEME);
