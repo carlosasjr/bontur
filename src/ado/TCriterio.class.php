@@ -58,15 +58,15 @@ class TCriterio extends TExpression
     {
         //concatena a lista de expressões
         $result = '';
-        if (is_array($this->expressions)):
-            foreach ($this->expressions as $i => $expression):
+        if (is_array($this->expressions)) :
+            foreach ($this->expressions as $i => $expression) :
                 $operator = $this->operators[$i];
-        //concatena o o operador com a respectiva expressão
-        $result .= $operator . $expression->dump() . ' ';
-        endforeach;
+                //concatena o o operador com a respectiva expressão
+                $result .= $operator . $expression->dump() . ' ';
+            endforeach;
 
-        $result = trim($result);
-        return "({$result})";
+            $result = trim($result);
+            return "({$result})";
         endif;
     }
 
@@ -79,8 +79,9 @@ class TCriterio extends TExpression
     {
         $property = strtolower($property);
 
-        if (isset($value)):
-            $this->properties[$property] = $value; else:
+        if (isset($value)) :
+            $this->properties[$property] = $value;
+        else :
             $this->properties[$property] = null;
         endif;
     }
@@ -92,7 +93,7 @@ class TCriterio extends TExpression
      *  */
     public function getProperty($property)
     {
-        if (isset($this->properties[$property])):
+        if (isset($this->properties[$property])) :
             return $this->properties[$property];
         endif;
     }

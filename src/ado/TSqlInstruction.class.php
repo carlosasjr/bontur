@@ -36,7 +36,7 @@ abstract class TSqlInstruction
         $logger = TTransaction::getLogger();
 
         if (!isset($logger)) :
-            TTransaction::setLogger(new TLoggerHTML('../../logs/InstrucoesSQL.html'));
+            TTransaction::setLogger(new TLoggerHTML('logs/InstrucoesSQL.html'));
         endif;
 
 

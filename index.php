@@ -18,76 +18,49 @@ $nome = $usuario->nome;
 
 $logoff = filter_input(INPUT_GET, 'logoff', FILTER_VALIDATE_BOOLEAN);
 $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
-
 ?>
+
+
     <!DOCTYPE html>
     <html lang="pt-br">
+
     <head>
-        <meta charset="UTF-8">
-        <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <title>Title</title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,800' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/reset.css"/>
-        <link rel="stylesheet" href="css/admin.css"/>
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Bontur Bondinhos Aéreos</title>
+        <meta name="description" content="Bontur Bondinhos Aéreos">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <link rel="stylesheet" href="public/vendors/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="public/vendors/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="public/vendors/themify-icons/css/themify-icons.css">
+        <link rel="stylesheet" href="public/vendors/flag-icon-css/css/flag-icon.min.css">
+        <link rel="stylesheet" href="public/vendors/selectFX/css/cs-skin-elastic.css">
+        <link rel="stylesheet" href="public/vendors/jqvmap/dist/jqvmap.min.css">
+
+        <link rel="stylesheet" href="public/assets/css/style.css" type="text/css">
+        <link rel="stylesheet" href="css/admin.css" type="text/css">
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
     </head>
+
     <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="navbar navbar-expand-lg navbar-dark rounded-bottom" style="background-color: #069;">
+    <?php require_once 'public/menu.php' ?>
 
-                    <?php
-                    //ATIVA MENU
-                    if (isset($getexe)) :
-                        $linkto = explode('/', $getexe);
-                    else :
-                        $linkto = array();
-                    endif;
-                    ?>
+    <div id="right-panel" class="right-panel">
+        <?php require_once 'public/header.php' ?>
 
-                    <a class="navbar-brand" href="#">Dasboard</a>
-
-                    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="navbar-collapse collapse" id="navbarMenu">
-                        <div class="navbar-nav">
-                            <a href="index.php?exe=categorias/create" class="nav-item nav-link <?php if (in_array('categorias', $linkto)) {
-                                echo ' active';
-                            } ?>">Categorias</a>
-                            <a href="index.php?exe=produtos/create" class="nav-item nav-link <?php if (in_array('produtos', $linkto)) {
-                                echo ' active';
-                            } ?>">Produtos</a>
-                            <a href="index.php?exe=compras/create" class="nav-item nav-link <?php if (in_array('compras', $linkto)) {
-                                echo ' active';
-                            } ?>">Compras</a>
-                            <a href="index.php?exe=pontuacao/create" class="nav-item nav-link <?php if (in_array('pontuacao', $linkto)) {
-                                echo ' active';
-                            } ?>">Pontuação</a>
-                        </div>
-                    </div>
-
-                    <div class="navbar-nav">
-                        <div id="nomeBar" class="text-white d-flex align-items-center" style="font-family: Open Sans">
-                            Olá <?= $nome ?> </div>
-                        <a href="index.php?exe=users/profile" class="nav-item nav-link"><img
-                                    src="icons/profile.png"></a>
-                        <a href="index.php?exe=users/users" class="nav-item nav-link"><img src="icons/users.png"></a>
-                        <a href="sair.php" class="nav-item nav-link"><img src="icons/logout.png"></a>
-                    </div>
-                </nav>
-            </div>
-        </div>
-
+        <!-- Right Panel -->
         <div id="painel">
             <?php
             //QUERY STRING
             if (!empty($getexe)) :
-                $includepatch = __DIR__ . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . strip_tags(trim($getexe) . '.php');
+                $includepatch = __DIR__ . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'system' .
+                    DIRECTORY_SEPARATOR . strip_tags(trim($getexe) . '.php');
             else :
-                $includepatch = __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'home.php';
+                $includepatch = __DIR__ . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'dashboard.php';
             endif;
 
 
@@ -95,27 +68,63 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
                 require_once($includepatch);
             else :
                 echo "<div class=\"content notfound\">";
-                WSErro("<b>Erro ao incluir tela:</b> Erro ao incluir o controller /{$getexe}.php!", WS_ERROR);
+                WSErro("Erro ao incluir o controller /{$getexe}.php!", WS_ERROR, 'Erro ao incluir tela');
                 echo "</div>";
             endif;
             ?>
         </div> <!-- painel -->
+    </div><!-- /#right-panel -->
 
-        <footer class="main_footer">
-            <a href="http://www.carlosasjr.com.br/bontur" target="_blank" title="Bontur ">&copy; Carlosasjr - Todos os
-                Direitos
-                Reservados</a>
-        </footer>
-    </div>
+
+    <script src="public/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="public/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="public/assets/js/main.js"></script>
+
+
+    <script src="public/vendors/chart.js/dist/Chart.bundle.min.js"></script>
+    <script src="public/assets/js/dashboard.js"></script>
+    <script src="public/assets/js/widgets.js"></script>
+    <script src="public/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="public/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="public/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+
+    <script src="public/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="public/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="public/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="public/vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="public/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="public/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="public/vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="public/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="public/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="public/vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <script src="public/assets/js/init-scripts/data-table/datatables-init.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            "use strict";
+
+            jQuery('#vmap').vectorMap({
+                map: 'world_en',
+                backgroundColor: null,
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#1de9b6',
+                enableZoom: true,
+                showTooltip: true,
+                values: sample_data,
+                scaleColors: ['#1de9b6', '#03a9f5'],
+                normalizeFunction: 'polynomial'
+            });
+        })(jQuery);
+    </script>
+
+
+
+
 
     </body>
 
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="js/additional-methods.js"></script>
-    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
-    <script src="js/localization/messages_pt_BR.min.js" type="text/javascript"></script>
     </html>
 <?php
 ob_end_flush();

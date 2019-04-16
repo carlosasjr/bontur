@@ -36,7 +36,7 @@ use App\model\TUsuariosRecord;
                             header("Location: index.php");
                             exit;
                         } else {
-                            WSErro('<b>Oppsss:</b> Usuário ou senha inválidos!', WS_ERROR);
+                            WSErro('Usuário ou senha inválidos!', WS_ERROR, 'Oppsss');
 
                         }
                     }
@@ -45,7 +45,7 @@ use App\model\TUsuariosRecord;
                         unset($dados['formRegistro']);
 
                         if (in_array('', $dados)) {
-                            WSErro('<b>Oppsss:</b> Preencha todos os campos!', WS_ALERT);
+                            WSErro('Preencha todos os campos!', WS_ALERT, 'Oppsss');
                         }
 
 
@@ -53,10 +53,11 @@ use App\model\TUsuariosRecord;
                         $email = $dados['email'];
 
                         if ($usuario->existeEmail($email)) {
-                            WSErro('<b>Oppsss:</b> Já existe um usuário cadastrado com este e-mail!', WS_ALERT);
+                            WSErro('Já existe um usuário cadastrado com este e-mail!', WS_ALERT, 'Oppsss');
                         }
 
                         $dados['ip'] = 0;
+                        $dados['id_perfil'] = 2;
                         $dados['senha'] = md5($dados['senha']);
 
                         $usuario->fromArray($dados);
@@ -73,9 +74,9 @@ use App\model\TUsuariosRecord;
 
                         if ($usuario->existeEmail($email)) {
                             $usuario->gerarToken($email);
-                            WSErro('<b>Sucesso:</b> E-mail enviado com sucesso. ', WS_ACCEPT);
+                            WSErro('E-mail enviado com sucesso. ', WS_ACCEPT, 'Sucesso');
                         } else {
-                            WSErro('<b>Oppsss:</b> Não existe um usuário cadastrado com este e-mail!', WS_ALERT);
+                            WSErro('Não existe um usuário cadastrado com este e-mail!', WS_ALERT, 'Oppsss');
                         }
 
 
@@ -85,9 +86,9 @@ use App\model\TUsuariosRecord;
                     $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
                     if (!empty($getexe)) :
                         if ($getexe == 'redefiniu') :
-                            WSErro('<b>Sucesso:</b> Senha redefinida com sucesso', WS_ALERT);
+                            WSErro('Senha redefinida com sucesso', WS_ALERT, 'Sucesso');
                         elseif ($getexe == 'logoff') :
-                            WSErro('<b>Sucesso:</b> Sua sessão foi finalizada. Volte sempre!', WS_ACCEPT);
+                            WSErro('Sua sessão foi finalizada. Volte sempre!', WS_ACCEPT, 'Sucesso');
                         endif;
                     endif;
                     ?>
@@ -177,7 +178,7 @@ use App\model\TUsuariosRecord;
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
                                 <img class="d-block img-fluid"
-                                     src="src/views/imagens/Bontur-Bondinhos-Aereos-Aparecida-SP-1121.jpg"
+                                     src="public/images/Bontur-Bondinhos-Aereos-Aparecida-SP-1121.jpg"
                                      alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
@@ -191,7 +192,7 @@ use App\model\TUsuariosRecord;
                             </div>
                             <div class="carousel-item">
                                 <img class="d-block img-fluid"
-                                     src="src/views/imagens/Bontur-Bondinhos-Aereos-Aparecida-SP-59.jpg"
+                                     src="public/images/Bontur-Bondinhos-Aereos-Aparecida-SP-59.jpg"
                                      alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
@@ -205,7 +206,7 @@ use App\model\TUsuariosRecord;
                             </div>
                             <div class="carousel-item">
                                 <img class="d-block img-fluid"
-                                     src="src/views/imagens/Bontur-Bondinhos-Aereos-Aparecida-SP-168.jpg"
+                                     src="public/images/Bontur-Bondinhos-Aereos-Aparecida-SP-168.jpg"
                                      alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
