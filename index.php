@@ -56,13 +56,13 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
                         <div class="navbar-nav">
                             <a href="index.php?exe=categorias/create" class="nav-item nav-link <?php if (in_array('categorias', $linkto)) {
                                 echo ' active';
-                            } ?>">Categorias</a>
+                            } ?>" >Categorias</a>
                             <a href="index.php?exe=produtos/create" class="nav-item nav-link <?php if (in_array('produtos', $linkto)) {
                                 echo ' active';
                             } ?>">Produtos</a>
-                            <a href="index.php?exe=compras/create" class="nav-item nav-link <?php if (in_array('compras', $linkto)) {
+                            <a href="index.php?exe=comprar/create" class="nav-item nav-link <?php if (in_array('comprar', $linkto)) {
                                 echo ' active';
-                            } ?>">Compras</a>
+                            } ?>">Comprar</a>
                             <a href="index.php?exe=pontuacao/create" class="nav-item nav-link <?php if (in_array('pontuacao', $linkto)) {
                                 echo ' active';
                             } ?>">Pontuação</a>
@@ -72,10 +72,9 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
                     <div class="navbar-nav">
                         <div id="nomeBar" class="text-white d-flex align-items-center" style="font-family: Open Sans">
                             Olá <?= $nome ?> </div>
-                        <a href="index.php?exe=users/profile" class="nav-item nav-link"><img
-                                    src="icons/profile.png"></a>
-                        <a href="index.php?exe=users/users" class="nav-item nav-link"><img src="icons/users.png"></a>
-                        <a href="sair.php" class="nav-item nav-link"><img src="icons/logout.png"></a>
+                        <a href="index.php?exe=users/profile" class="nav-item nav-link" data-toggle="tooltip" data-placement="right" title="Clique aqui para editar o Perfil."><img src="icons/profile.png"></a>
+                        <a href="index.php?exe=users/users" class="nav-item nav-link" data-toggle="tooltip" data-placement="right" title="Clique aqui para editar o Usuário"><img src="icons/users.png"></a>
+                        <a href="sair.php" class="nav-item nav-link" data-toggle="tooltip" data-placement="right" title="Clique aqui para sair do sistema."><img src="icons/logout.png"></a>
                     </div>
                 </nav>
             </div>
@@ -116,6 +115,7 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
     <script src="js/localization/messages_pt_BR.min.js" type="text/javascript"></script>
+    <script src="js/script.js" type="text/javascript"></script>
     </html>
 <?php
 ob_end_flush();
