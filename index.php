@@ -20,6 +20,7 @@ $logoff = filter_input(INPUT_GET, 'logoff', FILTER_VALIDATE_BOOLEAN);
 $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
 
 ?>
+<<<<<<< HEAD
     <!DOCTYPE html>
     <html lang="pt-br">
 
@@ -29,15 +30,18 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
         <!--[if lt IE 9]>
         <script src="_cdn/html5.js"></script>
         <![endif]-->
-
+=======
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Title</title>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,800' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/reset.css"/>
         <link rel="stylesheet" href="css/admin.css"/>
-    </head>
-
-    <body class="painel">
-
-
+</head>
+<body class="painel">
     <header id="navadmin">
         <div class="content">
 
@@ -124,12 +128,13 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
 
     </body>
 
-    <script src="../_cdn/jquery.js"></script>
-    <script src="../_cdn/jmask.js"></script>
-    <script src="../_cdn/combo.js"></script>
+    <script src="_cdn/jquery.js"></script>
+    <script src="_cdn/jmask.js"></script>
+    <script src="_cdn/combo.js"></script>
     <script src="__jsc/tiny_mce/tiny_mce.js"></script>
     <script src="__jsc/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php"></script>
     <script src="__jsc/admin.js"></script>
     </html>
 <?php
 ob_end_flush();
+
