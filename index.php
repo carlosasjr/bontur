@@ -20,17 +20,6 @@ $logoff = filter_input(INPUT_GET, 'logoff', FILTER_VALIDATE_BOOLEAN);
 $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
 
 ?>
-<<<<<<< HEAD
-    <!DOCTYPE html>
-    <html lang="pt-br">
-
-    <head>
-        <meta charset="UTF-8">
-        <title>Site Admin</title>
-        <!--[if lt IE 9]>
-        <script src="_cdn/html5.js"></script>
-        <![endif]-->
-=======
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -51,7 +40,7 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
                 <li class="username">Olá <?= $nome ?></li>
                 <li><a class="icon profile radius" href="index.php?exe=users/profile">Perfíl</a></li>
                 <li><a class="icon users radius" href="index.php?exe=users/users">Usuários</a></li>
-                <li><a class="icon logout radius" href="index.php?logoff=true">Sair</a></li>
+                <li><a class="icon logout radius" href="sair.php">Sair</a></li>
             </ul>
 
             <nav>

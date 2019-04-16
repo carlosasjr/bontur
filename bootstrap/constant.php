@@ -33,4 +33,4 @@ define('REQUIRE_PATH', 'src' . DIRECTORY_SEPARATOR . THEME);
 define('WS_ACCEPT', 'accept');
 define('WS_INFOR', 'infor');
 define('WS_ALERT', 'alert');
-define('WS_ERROR', 'error');
+define('WS_ERROR', 'erro');

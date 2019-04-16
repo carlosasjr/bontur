@@ -15,8 +15,6 @@ use App\model\TUsuariosRecord;
         <title>Sistema de Login - Bontur Bondinhos Aéreos</title>
         <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="css/styleLogin.css">
-        <link type="text/css" rel="stylesheet" href="css/alertify.bootstrap.css">
-        <link type="text/css" rel="stylesheet" href="css/alertify.default.css"/>
     </head>
     <body>
     <section class="login-block">
@@ -38,7 +36,7 @@ use App\model\TUsuariosRecord;
                             header("Location: index.php");
                             exit;
                         } else {
-                            WSErro('<b>Oppsss:</b> Usuário ou senha inválidos!', WS_ALERT);
+                            WSErro('<b>Oppsss:</b> Usuário ou senha inválidos!', WS_ERROR);
 
                         }
                     }
@@ -233,7 +231,6 @@ use App\model\TUsuariosRecord;
     <script type="text/javascript" src="js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
-    <script type="text/javascript" src="js/alertify.min.js"></script>
     <script src="js/localization/messages_pt_BR.min.js" type="text/javascript"></script>
     <script type="text/javascript" rel="script" src="js/scriptLogin.js"></script>
     </body>
