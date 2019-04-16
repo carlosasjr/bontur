@@ -31,12 +31,12 @@ body.painel{background: url(../images/header_bg.png) repeat-x #fbfbfb;}
 
 
 /*PAINEL ADMIN*/
-#navadmin{width: 100%; height: 147px; position: relative; margin-bottom: 50px;} 
+#navadmin{width: 100%; height: 40px; position: relative; margin-bottom: 50px;}
 #navadmin .content{width: 968px; display: block; margin: 0 auto;}
 #navadmin .logomarca{float: left; font-size: 0; width: 200px; height: 60px; margin-top: 20px; background: url(../images/header_logo.png) left center no-repeat;}
 
 /*NAV SYSTEM*/
-#navadmin .systema_nav{float: right; padding: 20px 5px 10px; background: #006699; position: relative; top: -10px}
+#navadmin .systema_nav{float: right; padding: 20px 5px 10px; background: #00254A; position: relative; top: -10px}
 #navadmin .systema_nav li{float: left;}
 #navadmin .systema_nav li a{float: left; margin: 0 15px; width: 30px; height: 30px; font-size: 0;}
 #navadmin .systema_nav li a:hover{background-color: #09f;}
@@ -45,6 +45,9 @@ body.painel{background: url(../images/header_bg.png) repeat-x #fbfbfb;}
 #navadmin .systema_nav li .logout{background: url(../icons/logout.png) center center no-repeat;}
 #navadmin .systema_nav li .icon{background-size: 80%;}
 #navadmin .systema_nav .username{margin: 5px 15px; float: left; font-variant: small-caps; color: #fff;}
+#nomeBar {
+    padding: 10px;
+}
 
 /*MENU CENTRAL*/
 #navadmin nav{width: 968px; display: block; float: left; position: absolute; bottom: 0px;}
