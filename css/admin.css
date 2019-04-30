@@ -20,9 +20,19 @@ body.painel{background: url(../images/header_bg.png) repeat-x #fbfbfb;}
 .main_footer a{font-size: 14px; color: #FFFFFF; font-variant: small-caps;}
 .main_footer a:hover{text-decoration: underline; color: #FFFFFF}
 
+.tab-content {
+   margin-top: 10px;
+}
 
-td .act_view{background: #eee url(../icons/act_view.png) center center no-repeat;}
-td .act_edit{background: #eee url(../icons/act_edit.png) center center no-repeat;}
-td .act_ative{background: #eee url(../icons/act_ative.png) center center no-repeat;}
-td .act_inative{background: #eee url(../icons/act_inative.png) center center no-repeat;}
-td .act_delete{background: #eee url(../icons/act_delete.png) center center no-repeat;}
+
+.act_view{background: #fff url(../icons/act_view.png) center center no-repeat;}
+.act_edit{background: #fff url(../icons/act_edit.png) center center no-repeat; }
+.act_ative{background: #fff url(../icons/act_ative.png) center center no-repeat;}
+.act_inative{background: #fff url(../icons/act_inative.png) center center no-repeat;}
+.act_delete{background: #fff url(../icons/act_delete.png) center center no-repeat;}
+
+.form_load{display: none;}
+
+.error {
+    color: #cc0000;
+}

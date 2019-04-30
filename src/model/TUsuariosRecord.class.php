@@ -1,10 +1,12 @@
 <?php
+
 namespace App\model;
 
 use App\ado\TRecord;
 use App\ado\TCriterio;
 use App\ado\TFilter;
 use App\ado\TSQLSelect;
+use App\ado\TRepository;
 
 class TUsuariosRecord extends TRecord
 {
@@ -108,5 +110,24 @@ class TUsuariosRecord extends TRecord
         }
 
         return false;
+    }
+
+    public function getAllUsuarios()
+    {
+        try {
+            //instancia um criterio de seleção
+            $criterio = new TCriterio();
+            $criterio->add(new TFilter('id', '>', 0));
+            $criterio->setProperty('ORDER', 'id');
+
+            //instancia um repositório para Inscrição
+            $repository = new TRepository('usuarios');
+            //retorna todos objetos que satisfazerem o critério
+            return $repository->load($criterio);
+
+        } catch (Exception $e) {
+            //exibe a mensagem gerada pela exceção
+            WSErro($e->getMessage(), WS_ERROR, 'Oppsss');
+        }
     }
 }

@@ -88,7 +88,7 @@ abstract class TRecord
             call_user_func(array($this, 'set' . $prop), $value);
         else :
             //atribui o valor da propriedade ao array de data
-            $this->data[$prop] = $value;
+            $this->data[$prop] =  ($value == '' ? null : $value) ;
         endif;
     }
 
@@ -162,7 +162,7 @@ abstract class TRecord
             $sql = new TSQLUpdate($this->getEntity(), $this->data, $criterio);
 
 
-              //obtém transação ativa
+            //obtém transação ativa
             if ($conn = TTransaction::get()) :
                 //executa o SQL
                 $sql->Execute();
@@ -220,8 +220,13 @@ abstract class TRecord
         //obter a transação ativa
         if ($conn = TTransaction::get()) :
             //executa o SQL
-            $sql->Execute();
-            return $sql->getResult();
+            try {
+                $sql->Execute();
+                return $sql->getResult();
+            } catch (PDOException $e) {
+                return false;
+            }
+
         else :
             throw new Exception('Não há transação ativa!');
         endif;

@@ -39,8 +39,11 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
         <link rel="stylesheet" href="public/vendors/selectFX/css/cs-skin-elastic.css">
         <link rel="stylesheet" href="public/vendors/jqvmap/dist/jqvmap.min.css">
 
+
         <link rel="stylesheet" href="public/assets/css/style.css" type="text/css">
         <link rel="stylesheet" href="css/admin.css" type="text/css">
+        <link rel="stylesheet" href="css/alertify.core.css" type="text/css">
+        <link rel="stylesheet" href="css/alertify.default.css" type="text/css">
 
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -81,25 +84,52 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
     <script src="public/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="public/assets/js/main.js"></script>
 
-
     <script src="public/vendors/chart.js/dist/Chart.bundle.min.js"></script>
     <script src="public/assets/js/dashboard.js"></script>
     <script src="public/assets/js/widgets.js"></script>
     <script src="public/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
     <script src="public/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <script src="public/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="js/alertify.min.js"></script>
 
-    <script src="public/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="public/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="public/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="public/vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="public/vendors/jszip/dist/jszip.min.js"></script>
-    <script src="public/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="public/vendors/pdfmake/build/vfs_fonts.js"></script>
-    <script src="public/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="public/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="public/vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="public/assets/js/init-scripts/data-table/datatables-init.js"></script>
+    <script src="js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="js/additional-methods.js" type="text/javascript"></script>
+    <script src="js/localization/messages_pt_BR.min.js" type="text/javascript"></script>
+    <script src="js/jquery.mask.min.js" type="text/javascript"></script>
+
+
+
+    <?php
+    $src = explode('/', $getexe);
+    $src = 'public/system/' . $src[0] . '/js/script.js';
+
+    if (file_exists($src)) :
+        ?>
+        <script type="text/javascript">
+            function reset () {
+                jQuery("#toggleCSS").attr("href", "css/alertify.default.css");
+                alertify.set({
+                    labels : {
+                        ok     : "OK",
+                        cancel : "Cancelar"
+                    },
+                    delay : 5000,
+                    buttonReverse : true,
+                    buttonFocus   : "ok"
+                });
+            }
+
+
+
+            var script = document.createElement('script');
+            script.src = "<?php echo $src ?>" // URL do seu script aqui
+            document.body.appendChild(script);
+        </script>
+    <?php
+    endif;
+    ?>
+
+
     <script type="text/javascript">
         (function ($) {
             "use strict";
@@ -116,11 +146,10 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
                 scaleColors: ['#1de9b6', '#03a9f5'],
                 normalizeFunction: 'polynomial'
             });
+
+
         })(jQuery);
     </script>
-
-
-
 
 
     </body>
