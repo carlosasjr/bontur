@@ -11,7 +11,6 @@ $Action = $Post['action'];
 $jSon = array();
 unset($Post['action']);
 
-
 switch ($Action) :
     case 'read':
         $registro = new TPerfilRecord($Post['regID']);

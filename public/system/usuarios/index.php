@@ -65,7 +65,7 @@ use App\model\TUsuariosRecord;
 
                                 <?php
                                 $usuarios = new TUsuariosRecord();
-                                $dados = $usuarios->getAllUsuarios();
+                                $dados = $usuarios->getAll();
 
                                 if ($dados) : ?>
                                     <tbody class="j_list">

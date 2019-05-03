@@ -35,15 +35,6 @@
                 </li>  <!-- /.menu-CADASTROS -->
 
 
-                <h3 class="menu-title">MOVIMENTAÇÃO</h3><!-- /.menu-MOVIMENTACAO -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Compras</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-puzzle-piece"></i><a href="index.php?exe=ingressos/index">Ingressos</a></li>
-                        <li><i class="fa fa-id-badge"></i><a href="index.php?exe=pontuacao/index">Ver Pontuação</a></li>
-                    </ul>
-                </li>  <!-- /.menu-MOVIMENTACAO -->
-
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>

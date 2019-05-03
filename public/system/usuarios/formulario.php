@@ -25,16 +25,6 @@ $profile = (in_array('profile', $src) ? true : false);
         <div class="tab-pane container active" id="home">
             <input type="hidden" class="j_id" name="id" value="<?= (isset($usuario)) ? $usuario->id : ''; ?>"/>
 
-            <div class="form-group">
-                <div class="form-row">
-                    <div class="col-12 ">
-                        <label for="id_perfil">Foto</label>
-                        <input type="file" name="foto" id="foto">
-                    </div>
-                </div>
-            </div>
-
-
             <?php if (!$profile) : ?>
                 <div class="form-group">
                     <div class="form-row">
@@ -248,7 +238,6 @@ $profile = (in_array('profile', $src) ? true : false);
                 <textarea class="form-control" rows="5" id="observacoes"
                           name="observacoes"><?= (isset($usuario)) ? $usuario->observacoes : ''; ?></textarea>
             </div>
-
         </div>
     </div>
 

@@ -1,8 +1,9 @@
 <?php
 require '../../../../vendor/autoload.php';
 
-use App\model\TPerfilRecord;
-use App\model\TUsuariosRecord;
+use App\model\TProdutosRecord;
+use App\model\TCategoriasRecord;
+use App\model\Check;
 
 $getPost = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $setPost = array_map('strip_tags', $getPost);
@@ -12,18 +13,17 @@ $Action = $Post['action'];
 $jSon = array();
 unset($Post['action']);
 
-
 switch ($Action) :
-    case 'getPerfis':
-        $perfis = new TPerfilRecord();
-        $dados = $perfis->getAll();
+    case 'getCategorias':
+        $categorias = new TCategoriasRecord();
+        $dados = $categorias->getAll();
         $html = '';
 
-        /* @var TPerfilRecord $perfil */
-        foreach ($dados as $perfil) :
-            $selected = (isset($Post['option']) && ($Post['option'] == $perfil->id)) ? 'selected' : '';
+        /* @var TCategoriasRecord $categoria */
+        foreach ($dados as $categoria) :
+            $selected = (isset($Post['option']) && ($Post['option'] == $categoria->id)) ? 'selected' : '';
             $html .= <<<TABELA
-            <option value = {$perfil->id} {$selected}>$perfil->descricao</option>  
+            <option value = {$categoria->id} {$selected}>$categoria->descricao</option>  
 TABELA;
         endforeach;
 
@@ -33,36 +33,33 @@ TABELA;
 
 
     case 'read':
-        $registro = new TUsuariosRecord($Post['regID']);
+        $registro = new TProdutosRecord($Post['regID']);
         if ($registro) {
             $jSon['registro'] = $registro->toArray();
+            $jSon['registro']['preco'] = Check::floatToReal($jSon['registro']['preco']);
+
         } else {
             $jSon['error'] = true;
         }
         break;
 
     case 'create':
-        $registro = new TUsuariosRecord();
+        $registro = new TProdutosRecord();
+        $Post['preco'] = Check::realTofloat($Post['preco']);
 
-        if ($registro->existeEmail($Post['email'])) {
-            $jSon['error'] = true;
-            $jSon['mensagem'] = '<b>Opps....</b> E-mail já cadastrado!';
-        } else {
-            $Post['ip'] = $_SERVER['REMOTE_ADDR'];
-            $Post['status'] = (isset($Post['status'])) ? 0 : 1;
+        $registro->fromArray($Post);
+        $registro->store();
 
+        $jSon['error'] = false;
+        $jSon['success'] = "Cadastro com Sucesso!";
 
-            $registro->fromArray($Post);
-            $registro->store();
+        $categoria = new TCategoriasRecord($registro->id_categoria);
 
-            $jSon['error'] = false;
-            $jSon['success'] = "Cadastro com Sucesso!";
-
-            $html = <<<TABELA
+        $html = <<<TABELA
             <tr id="{$registro->id}">
                 <td>{$registro->id}</td>
-                <td>$registro->nome</td>
-                <td>$registro->email</td>
+                <td>$registro->descricao</td>                
+                <td>$categoria->descricao</td>
                 <td>
                    <button class="btn btn-dark j_edit" rel="{$registro->id}">
                       Editar
@@ -74,16 +71,14 @@ TABELA;
             </tr>     
 TABELA;
 
-            $jSon['result'] = $html;
-        }
-
+        $jSon['result'] = $html;
 
         break;
 
 
     case 'update':
-        $registro = new TUsuariosRecord();
-        $Post['senha'] = md5($Post['senha']);
+        $registro = new TProdutosRecord();
+        $Post['preco'] = Check::realTofloat($Post['preco']);
         $registro->fromArray($Post);
         $registro->store();
 
@@ -91,10 +86,12 @@ TABELA;
         $jSon['success'] = "Alterado com Sucesso!";
 
         //update não mando a tr, somente os td que serão atualizados.
+
+        $categoria = new TCategoriasRecord($registro->id_categoria);
         $html = <<<TABELA
                 <td>{$registro->id}</td>
-                <td>$registro->nome</td>
-                <td>$registro->email</td>
+                <td>$registro->descricao</td>
+                <td>$categoria->descricao</td>                
                 <td>
                    <button class="btn btn-dark j_edit" rel="{$registro->id}">
                       Editar
@@ -102,7 +99,7 @@ TABELA;
                    <button class="btn btn-danger j_delete" rel="{$registro->id}">
                       Excluir
                    </button>
-                </td>  
+                </td>
 TABELA;
 
         $jSon['result'] = $html;
@@ -110,7 +107,8 @@ TABELA;
         break;
 
     case 'delete':
-        $registro = new TUsuariosRecord($Post['regID']);
+        $registro = new TProdutosRecord($Post['regID']);
+
 
         try {
             if (!$registro->delete()) {

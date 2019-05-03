@@ -20,7 +20,13 @@ jQuery(document).ready(function () {
 
     jQuery("#formPost").validate({
         rules: {
-            //colocar as regras e validações aqui
+            descricao : {
+                required: true
+            },
+
+            permissoes : {
+                required: true
+            }
 
         },
 

@@ -1,8 +1,7 @@
 <?php
 require '../../../../vendor/autoload.php';
 
-use App\model\TPerfilRecord;
-use App\model\TUsuariosRecord;
+use App\model\TCategoriasRecord;
 
 $getPost = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $setPost = array_map('strip_tags', $getPost);
@@ -14,26 +13,8 @@ unset($Post['action']);
 
 
 switch ($Action) :
-    case 'getPerfis':
-        $perfis = new TPerfilRecord();
-        $dados = $perfis->getAll();
-        $html = '';
-
-        /* @var TPerfilRecord $perfil */
-        foreach ($dados as $perfil) :
-            $selected = (isset($Post['option']) && ($Post['option'] == $perfil->id)) ? 'selected' : '';
-            $html .= <<<TABELA
-            <option value = {$perfil->id} {$selected}>$perfil->descricao</option>  
-TABELA;
-        endforeach;
-
-        $jSon['resultado'] = $html;
-
-        break;
-
-
     case 'read':
-        $registro = new TUsuariosRecord($Post['regID']);
+        $registro = new TCategoriasRecord($Post['regID']);
         if ($registro) {
             $jSon['registro'] = $registro->toArray();
         } else {
@@ -42,16 +23,11 @@ TABELA;
         break;
 
     case 'create':
-        $registro = new TUsuariosRecord();
-
-        if ($registro->existeEmail($Post['email'])) {
+        if (in_array('', $Post)) {
             $jSon['error'] = true;
-            $jSon['mensagem'] = '<b>Opps....</b> E-mail já cadastrado!';
+            $jSon['mensagem'] = "<b>Opss:</b> Para cadastrar uma categoria. Preencha todos os campos!";
         } else {
-            $Post['ip'] = $_SERVER['REMOTE_ADDR'];
-            $Post['status'] = (isset($Post['status'])) ? 0 : 1;
-
-
+            $registro = new TCategoriasRecord();
             $registro->fromArray($Post);
             $registro->store();
 
@@ -61,8 +37,7 @@ TABELA;
             $html = <<<TABELA
             <tr id="{$registro->id}">
                 <td>{$registro->id}</td>
-                <td>$registro->nome</td>
-                <td>$registro->email</td>
+                <td>$registro->descricao</td>
                 <td>
                    <button class="btn btn-dark j_edit" rel="{$registro->id}">
                       Editar
@@ -77,24 +52,25 @@ TABELA;
             $jSon['result'] = $html;
         }
 
-
         break;
 
 
     case 'update':
-        $registro = new TUsuariosRecord();
-        $Post['senha'] = md5($Post['senha']);
-        $registro->fromArray($Post);
-        $registro->store();
+        if (in_array('', $Post)) {
+            $jSon['error'] = true;
+            $jSon['mensagem'] = "<b>Opss:</b> Para cadastrar uma categoria. Preencha todos os campos!";
+        } else {
+            $registro = new TCategoriasRecord();
+            $registro->fromArray($Post);
+            $registro->store();
 
-        $jSon['error'] = false;
-        $jSon['success'] = "Alterado com Sucesso!";
+            $jSon['error'] = false;
+            $jSon['success'] = "Alterado com Sucesso!";
 
-        //update não mando a tr, somente os td que serão atualizados.
-        $html = <<<TABELA
+            //update não mando a tr, somente os td que serão atualizados.
+            $html = <<<TABELA
                 <td>{$registro->id}</td>
-                <td>$registro->nome</td>
-                <td>$registro->email</td>
+                <td>$registro->descricao</td>
                 <td>
                    <button class="btn btn-dark j_edit" rel="{$registro->id}">
                       Editar
@@ -102,15 +78,16 @@ TABELA;
                    <button class="btn btn-danger j_delete" rel="{$registro->id}">
                       Excluir
                    </button>
-                </td>  
+                </td>
 TABELA;
 
-        $jSon['result'] = $html;
+            $jSon['result'] = $html;
+        }
 
         break;
 
     case 'delete':
-        $registro = new TUsuariosRecord($Post['regID']);
+        $registro = new TCategoriasRecord($Post['regID']);
 
         try {
             if (!$registro->delete()) {

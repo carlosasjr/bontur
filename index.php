@@ -20,7 +20,6 @@ $logoff = filter_input(INPUT_GET, 'logoff', FILTER_VALIDATE_BOOLEAN);
 $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
 ?>
 
-
     <!DOCTYPE html>
     <html lang="pt-br">
 
@@ -96,6 +95,7 @@ $getexe = filter_input(INPUT_GET, 'exe', FILTER_DEFAULT);
     <script src="js/additional-methods.js" type="text/javascript"></script>
     <script src="js/localization/messages_pt_BR.min.js" type="text/javascript"></script>
     <script src="js/jquery.mask.min.js" type="text/javascript"></script>
+    <script src="js/jquery.maskMoney.js" type="text/javascript"></script>
 
 
 

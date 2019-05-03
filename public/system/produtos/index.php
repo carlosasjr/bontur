@@ -4,14 +4,15 @@ if (empty($_SESSION['login'])) {
     exit;
 }
 
-use App\model\TPerfilRecord;
+use App\model\TProdutosRecord;
+use App\model\TCategoriasRecord;
 
 ?>
 
 
 <div class="content mt-3">
 
-    <button class="btn btn-primary" id="j_open" data-toggle="modal" data-target="#formModal">Novo Perfil</button>
+    <button class="btn btn-primary" id="j_open" data-toggle="modal" data-target="#formModal">Novo Produto</button>
     <br>
     <br>
 
@@ -19,7 +20,7 @@ use App\model\TPerfilRecord;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Perfil</h5>
+                    <h5 class="modal-title">Produtos</h5>
                     <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
 
@@ -27,6 +28,17 @@ use App\model\TPerfilRecord;
 
                     <form method="post" id="formPost" name="formPost">
                         <input class="noclear" type="hidden" name="action" value="create">
+
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <label for="id_categoria">Categoria</label>
+                                    <select name="id_categoria" id="id_categoria" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="form-row">
@@ -37,18 +49,31 @@ use App\model\TPerfilRecord;
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-12 col-sm-6">
+                                    <label for="preco">Preço</label>
+                                    <input type="text" name="preco" id="preco" class="form-control">
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <label for="preco">Pontos</label>
+                                    <input type="number" name="pontos" id="pontos" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-12">
-                                    <label for="permissao">Permissão</label>
-                                    <select name="permissoes" id="permissoes" class="form-control">
-                                        <option value="ADMIN">Administrador</option>
-                                        <option value="USER">Usuários</option>
-                                    </select>
+                                    <label for="observacoes">Observações:</label>
+                                    <textarea class="form-control" rows="3" id="detalhes"
+                                              name="detalhes"></textarea>
                                 </div>
                             </div>
                         </div>
+
 
                     </form>
 
@@ -76,7 +101,7 @@ use App\model\TPerfilRecord;
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Perfil do usuário</strong>
+                        <strong class="card-title">Produtos</strong>
                     </div>
 
                     <div class="card-body">
@@ -86,28 +111,33 @@ use App\model\TPerfilRecord;
                                 <tr>
                                     <th>#</th>
                                     <th>Descrição</th>
+                                    <th>Categoria</th>
                                     <th>Ação</th>
                                 </tr>
                                 </thead>
 
                                 <?php
-                                $perfis = new TPerfilRecord();
-                                $dados = $perfis->getAll();
+                                $produtos = new TProdutosRecord();
+                                $dados = $produtos->getAll();
 
                                 if ($dados) : ?>
                                     <tbody class="j_list">
                                     <?php
-                                    /* @var TPerfilRecord $inscricao */
-                                    foreach ($dados as $perfil) :
+                                    /* @var TProdutosRecord $inscricao */
+                                    foreach ($dados as $produtos) :
+
+                                        $categoria = new TCategoriasRecord($produtos->id_categoria);
                                         ?>
-                                        <tr id="<?= $perfil->id; ?>">
-                                            <td><?= $perfil->id; ?></td>
-                                            <td><?= $perfil->descricao; ?></td>
+                                        <tr id="<?= $produtos->id; ?>">
+                                            <td><?= $produtos->id; ?></td>
+                                            <td><?= $produtos->descricao; ?></td>
+
+                                            <td><?= $categoria->descricao; ?></td>
                                             <td>
-                                                <button class="btn btn-dark j_edit" rel="<?= $perfil->id; ?>">
+                                                <button class="btn btn-dark j_edit" rel="<?= $produtos->id; ?>">
                                                     Editar
                                                 </button>
-                                                <button class="btn btn-danger j_delete" rel="<?= $perfil->id; ?>">
+                                                <button class="btn btn-danger j_delete" rel="<?= $produtos->id; ?>">
                                                     Excluir
                                                 </button>
                                             </td>

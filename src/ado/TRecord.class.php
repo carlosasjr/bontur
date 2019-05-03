@@ -83,6 +83,8 @@ abstract class TRecord
     public function __set($prop, $value)
     {
         //verifica se existe método set<propriedade>
+        $prop = strtolower($prop);
+
         if (method_exists($this, 'set' . $prop)) :
             //executa o método set<propriedade>
             call_user_func(array($this, 'set' . $prop), $value);
@@ -177,7 +179,8 @@ abstract class TRecord
 
     public function load($id)
     {
-        //instancia instrução de SELECT
+
+        ///instancia instrução de SELECT
         $sql = new TSQLSelect($this->getEntity());
 
 
@@ -230,5 +233,24 @@ abstract class TRecord
         else :
             throw new Exception('Não há transação ativa!');
         endif;
+    }
+
+    public function getAll()
+    {
+        try {
+            //instancia um criterio de seleção
+            $criterio = new TCriterio();
+            $criterio->add(new TFilter('id', '>', 0));
+            $criterio->setProperty('ORDER', 'id');
+
+            //instancia um repositório para Inscrição
+            $repository = new TRepository($this->getEntity());
+            //retorna todos objetos que satisfazerem o critério
+            return $repository->load($criterio);
+
+        } catch (Exception $e) {
+            //exibe a mensagem gerada pela exceção
+            WSErro($e->getMessage(), WS_ERROR, 'Oppsss');
+        }
     }
 }
