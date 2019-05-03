@@ -16,6 +16,24 @@
 CREATE DATABASE IF NOT EXISTS `carlo019_bontur` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 USE `carlo019_bontur`;
 
+-- Copiando estrutura para tabela carlo019_bontur.categorias
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `data_criacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_alteracao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+-- Copiando dados para a tabela carlo019_bontur.categorias: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+INSERT INTO `categorias` (`id`, `descricao`, `data_criacao`, `data_alteracao`) VALUES
+	(1, 'Adulto', '2019-05-01 14:09:26', '2019-05-01 14:09:58'),
+	(2, 'Infantil (6 a 12)', '2019-05-03 10:52:42', '2019-05-03 10:53:05'),
+	(3, 'Terceira Idade', '2019-05-03 10:52:51', '2019-05-03 10:52:51'),
+	(4, 'Infantil (0 a 5)', '2019-05-03 10:53:23', '2019-05-03 10:53:23');
+/*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela carlo019_bontur.perfil
 CREATE TABLE IF NOT EXISTS `perfil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -31,9 +49,35 @@ CREATE TABLE IF NOT EXISTS `perfil` (
 /*!40000 ALTER TABLE `perfil` DISABLE KEYS */;
 INSERT INTO `perfil` (`id`, `descricao`, `permissoes`, `data_cadastro`, `data_alteracao`) VALUES
 	(1, 'Administrador', 'ADMIN', '2019-04-23 17:16:08', '2019-04-26 22:36:59'),
-	(2, 'Cliente', 'USER', '2019-04-27 20:02:28', '2019-04-27 20:02:28'),
-	(3, 'DBA Master', 'ADMIN', '2019-04-26 22:36:46', '2019-04-27 18:47:08');
+	(2, 'Cliente', 'ADMIN', '2019-04-27 20:02:28', '2019-05-01 12:47:08'),
+	(3, 'DBA', 'ADMIN', '2019-04-26 22:36:46', '2019-05-01 00:19:23');
 /*!40000 ALTER TABLE `perfil` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela carlo019_bontur.produtos
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(100) NOT NULL,
+  `preco` float NOT NULL,
+  `pontos` int(11) NOT NULL DEFAULT '1',
+  `data_criacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_alteracao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `detalhes` text NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_produtos_categorias` (`id_categoria`),
+  CONSTRAINT `FK_produtos_categorias` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+-- Copiando dados para a tabela carlo019_bontur.produtos: ~6 rows (aproximadamente)
+/*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+INSERT INTO `produtos` (`id`, `descricao`, `preco`, `pontos`, `data_criacao`, `data_alteracao`, `detalhes`, `id_categoria`) VALUES
+	(1, 'Bondinho (Somente Ida)', 16, 1, '2019-05-03 12:33:59', '2019-05-03 12:54:42', '', 1),
+	(2, 'Bondinho (Ida e Volta)', 26, 1, '2019-05-03 12:34:25', '2019-05-03 12:34:25', '', 1),
+	(3, 'Bondinho (Somente Ida)', 8, 1, '2019-05-03 12:35:17', '2019-05-03 12:35:17', 'Mediante apresentação de documento', 2),
+	(4, 'Bondinho (Ida e Volta)', 13, 1, '2019-05-03 12:35:46', '2019-05-03 12:35:46', 'Mediante apresentação de documento', 2),
+	(5, 'Bondinho (Somente Ida)', 8, 1, '2019-05-03 12:37:00', '2019-05-03 12:54:50', 'Apartir de 60 anos - mediante apresentação de documento', 3),
+	(6, 'Bondinho (Ida e Volta)', 13, 1, '2019-05-03 12:37:36', '2019-05-03 12:37:36', 'Apartir de 60 anos - mediante apresentação de documento', 3);
+/*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela carlo019_bontur.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -54,7 +98,6 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `pais` varchar(50) DEFAULT NULL,
   `telefone` varchar(14) DEFAULT NULL,
   `celular` varchar(14) DEFAULT NULL,
-  `foto` text,
   `observacoes` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
@@ -62,12 +105,13 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   CONSTRAINT `FK_USUARIOS_PERFIL` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Copiando dados para a tabela carlo019_bontur.usuarios: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela carlo019_bontur.usuarios: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`id`, `nome`, `senha`, `status`, `email`, `ip`, `data_cadastro`, `data_alteracao`, `id_perfil`, `endereco`, `numero`, `bairro`, `cidade`, `estado`, `pais`, `telefone`, `celular`, `foto`, `observacoes`) VALUES
-	(1, 'Carlos Antônio dos Santos Júnior', 'f36a76e0b977af58f3006d944e26583a', '1', 'carlosasjr2003@hotmail.com', '127.0.0.1', '2019-04-26 10:41:55', '2019-04-30 16:24:10', 1, 'Rua Isaac Júlio Barreto', '229', 'Ponte Alta', 'Aparecida', 'SP', 'Brasil', '(12)981544374', '', NULL, 'Teste de observação'),
-	(2, 'Maria Eugenia dos Santos', '7363a0d0604902af7b70b271a0b96480', '0', 'maria_gena_@hotmail.com', '::1', '2019-04-29 09:11:16', '2019-04-30 16:02:04', 2, 'Rua Isaac Julio Barreto', '229', 'Ponte Alta', 'Aparecida', 'SP', 'Brasil', '', '', NULL, 'teste de área'),
-	(3, 'Isabela Gianna dos Santos', '7363a0d0604902af7b70b271a0b96480', '1', 'isabela@hotmail.com', '::1', '2019-04-30 16:02:27', '2019-04-30 16:08:12', 1, '', '', '', '', 'SP', 'Brasil', '', '', NULL, '');
+INSERT INTO `usuarios` (`id`, `nome`, `senha`, `status`, `email`, `ip`, `data_cadastro`, `data_alteracao`, `id_perfil`, `endereco`, `numero`, `bairro`, `cidade`, `estado`, `pais`, `telefone`, `celular`, `observacoes`) VALUES
+	(1, 'Carlos Antônio dos Santos Júnior', '7363a0d0604902af7b70b271a0b96480', '1', 'carlosasjr2003@hotmail.com', '127.0.0.1', '2019-04-26 10:41:55', '2019-05-03 14:41:07', 1, 'Rua Isaac Júlio Barreto', '229', 'Ponte Alta', 'Aparecida', 'SP', 'Brasil', '(12)981544374', '', 'Teste de observação'),
+	(2, 'Maria Eugenia dos Santos', '202cb962ac59075b964b07152d234b70', '0', 'maria_gena_@hotmail.com', '::1', '2019-04-29 09:11:16', '2019-05-01 00:18:48', 2, 'Rua Isaac Julio Barreto', '229', 'Ponte Alta', 'Aparecida', 'SP', 'Brasil', '', '', 'teste de área'),
+	(3, 'Isabela Gianna dos Santos', '202cb962ac59075b964b07152d234b70', '1', 'isabela@hotmail.com', '::1', '2019-04-30 16:02:27', '2019-05-01 00:18:48', 1, '', '', '', '', 'SP', 'Brasil', '', '', ''),
+	(4, 'Samuel Henrique dos Santos', '123', '1', 'samuca@hotmail.com', '127.0.0.1', '2019-05-03 10:23:02', '2019-05-03 10:23:02', 2, '', '', '', '', 'SP', '', '(12)3311-1714', '(12)98154-4374', 'Teste de observação');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela carlo019_bontur.usuariostoken
